@@ -1,26 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div><addTodo @tValue="pushTodo" /> <todo-list :todoList="todoList" /></div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { ref } from "@vue/reactivity";
+import addTodo from "./components/addForm.vue";
+import TodoList from "./components/todoList.vue";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { addTodo, TodoList },
+  setup() {
+    const todoList = ref([]);
+    const pushTodo = (value) => {
+      todoList.value.push(value);
+    };
+    return { todoList, pushTodo };
+  },
+};
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  margin: 0;
+  padding: 0;
 }
 </style>
